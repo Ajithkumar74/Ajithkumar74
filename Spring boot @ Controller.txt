@@ -1,0 +1,67 @@
+Spring boot @ Controller flow:
+@controller annotation in spring MVC is part of framework's web request handling.It defines how HTTP requests are processes and responses are generated. 
+
+1.Client makes an HTTP Request:
+* A client sends an HTTP request(GET,POST,PUT,DELETE)to specific URL.
+
+2.Request Handling by dispacherServlet
+*  The DispatcherServlet, which is the central components in Spring MVC,receives the Request.
+
+* It acts as the front controller and is configures in web.xml or through Java configuration.
+
+3.Handler Mapping:
+* The DispatcherServlet consults HandlerMapping to determine which @Controller method should handle the request.
+
+* The mapping is based on:
+   * URL pattern specified in @Request Mapping or newer @GetMapping, @PostMapping, etc.
+   *HTTP method type (e.g., GET, POST).
+4.Controller Method Execution:
+The selected method in the @Controller class is invoked.
+Parameters are populated automatically, such as:
+
+Path variables (e.g., @PathVariable).
+Request parameters (e.g., @RequestParam).
+Request body (e.g., @RequestBody).
+Session or model attributes.
+
+Business logic or service calls can be made here.
+
+5.Returning a Response
+The controller method returns a response in the form of:
+View name: The name of the JSP, Thymeleaf, or other template file to render.
+ModelAndView: A combination of a view and data model.
+Response body: If @ResponseBody is used or the class is annotated with @RestController, it directly returns data in JSON, XML, or other formats.
+
+6.View Resolver (If Applicable)
+If a view name is returned, the ViewResolver resolves it to an actual view file.
+For example, return "home" might resolve to /WEB-INF/views/home.jsp.
+
+7.Response Sent to Client
+The rendered view or response data is sent back to the client as the HTTP response.
+
+
+Controller Class:
+@Controller
+public class MyController {
+
+    @GetMapping("/hello")
+    public String sayHello(Model model) {
+        model.addAttribute("message", "Hello, Spring MVC!");
+        return "helloView"; // Maps to a view like helloView.jsp or helloView.html
+    }
+
+    @PostMapping("/submit")
+    @ResponseBody
+    public String submitData(@RequestBody MyData data) {
+        // Process data
+        return "Data processed successfully!";
+    }
+}
+
+
+Flow:
+Client sends a GET request to /hello.
+DispatcherServlet identifies the sayHello() method.
+The view "helloView" is resolved and rendered with the model data.
+For a POST request to /submit, the method directly returns a response body.
+

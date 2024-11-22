@@ -1,0 +1,69 @@
+@RestController:
+what is flow of @RestController:
+@RestController in Spring MVC is designed to handle RESTful web service requests and provide responses diresctly, usually in JSON or XML format.
+It is specialization of the @Controller annotation with @ResponseBody applied to all methods by default.
+
+Here's the flow of a @RestController:
+
+1.Client Makes an HTTP Request
+ * A client(e.g., browser,Postman, or another service) sends an HTTP request(GET,POST,PUT,DELETE) to a specified URL.
+
+2.Request Interception by DispatcherServlet
+ * The DispatcherServlet acts as the front controller for all incoming requests in Spring MVC
+ * It receives the request and delegates it to the appropriate handler.
+
+3.Handler Mapping 
+The HandlerMapping component determines as correct @RestController method based on :
+	The URL path.
+	The HTTP method (e,g.,GET,POST)
+
+Annotations like @RequestMapping, @GetMapping, @PostMapping, etc., define this mapping.
+
+4. Execution of the Controller Method
+
+The mapped method in the @RestController class is executed.
+Parameters of the method are resolved automatically, such as:
+
+Path variables: @PathVariable
+Query parameters: @RequestParam
+Request body: @RequestBody
+Headers: @RequestHeader
+Session attributes: @SessionAttribute
+
+The method processes the request and interacts with the service or data layer, if necessary.
+
+
+The flow of a @RestController in Spring MVC is designed to handle RESTful web service requests and provide responses directly, usually in JSON or XML format. It is a specialization of the @Controller annotation with @ResponseBody applied to all methods by default.
+
+Here’s the flow of a @RestController:
+
+1. Client Makes an HTTP Request
+A client (e.g., browser, Postman, or another service) sends an HTTP request (GET, POST, PUT, DELETE) to a specified URL.
+
+2. Request Interception by DispatcherServlet
+The DispatcherServlet acts as the front controller for all incoming requests in Spring MVC.
+It receives the request and delegates it to the appropriate handler.
+
+3. Handler Mapping
+The HandlerMapping component determines the correct @RestController method based on:
+The URL path.
+The HTTP method (e.g., GET, POST).
+Annotations like @RequestMapping, @GetMapping, @PostMapping, etc., define this mapping.
+
+4. Execution of the Controller Method
+The mapped method in the @RestController class is executed.
+Parameters of the method are resolved automatically, such as:
+Path variables: @PathVariable
+Query parameters: @RequestParam
+Request body: @RequestBody
+Headers: @RequestHeader
+Session attributes: @SessionAttribute
+The method processes the request and interacts with the service or data layer, if necessary.
+
+5. Response Creation
+The method directly returns the response data (e.g., Java objects, strings, or collections).
+The @RestController ensures that this data is automatically serialized into JSON (or XML, based on configuration).
+There is no need for a ViewResolver or template engine, as no view rendering is involved.
+
+6.Response Sent to the Client
+The serialized response is sent back to the client in the HTTP response body.
